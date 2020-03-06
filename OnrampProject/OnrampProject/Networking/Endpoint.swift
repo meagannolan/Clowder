@@ -7,18 +7,25 @@
 
 import Foundation
 
-struct Endpoint {
+class Endpoint {
 
     let scheme: String
     let host: String
     let path: String
-    let queryItems: [URLQueryItem]
+    var page: Int {
+        didSet {
+            if queryItems.count > 1 { queryItems.removeLast() }
+            queryItems.append(URLQueryItem(name: "page", value: "\(page)"))
+        }
+    }
+    var queryItems: [URLQueryItem]
 
-    init(_ scheme: String = "https", _ host: String = "api.unsplash.com", path: String = "/search/photos", page: Int) {
+    init(_ scheme: String = "https", _ host: String = "api.unsplash.com", _ path: String = "/search/photos", _ page: Int = 1) {
         self.scheme = scheme
         self.host = host
         self.path = path
-        self.queryItems = [URLQueryItem(name: "page", value: "\(page)"), URLQueryItem(name: "query", value: "cat")]
+        self.page = page
+        self.queryItems = [URLQueryItem(name: "query", value: "cat"), URLQueryItem(name: "page", value: "\(page)")]
     }
 
     var url: URL? {

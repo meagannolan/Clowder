@@ -60,22 +60,28 @@ class PhotoDetailViewController: UIViewController {
         view.addSubview(actionStackView)
 
         closeButton.translatesAutoresizingMaskIntoConstraints = false
-        closeButton.widthAnchor.constraint(equalToConstant: 30).isActive = true
-        closeButton.heightAnchor.constraint(equalToConstant: 30).isActive = true
-        closeButton.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 30).isActive = true
-        closeButton.topAnchor.constraint(equalTo: safeArea.topAnchor, constant: 30).isActive = true
+        NSLayoutConstraint.activate([
+            closeButton.widthAnchor.constraint(equalToConstant: 30),
+            closeButton.heightAnchor.constraint(equalToConstant: 30),
+            closeButton.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 30),
+            closeButton.topAnchor.constraint(equalTo: safeArea.topAnchor, constant: 30)
+        ])
 
         photoImageView.translatesAutoresizingMaskIntoConstraints = false
-        photoImageView.topAnchor.constraint(greaterThanOrEqualTo: closeButton.bottomAnchor, constant: 50).isActive = true
-        photoImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        photoImageView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        NSLayoutConstraint.activate([
+            photoImageView.topAnchor.constraint(greaterThanOrEqualTo: closeButton.bottomAnchor, constant: 50),
+            photoImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            photoImageView.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+        ])
 
         actionStackView.translatesAutoresizingMaskIntoConstraints = false
-        actionStackView.widthAnchor.constraint(equalTo: safeArea.widthAnchor).isActive = true
-        actionStackView.heightAnchor.constraint(equalToConstant: 40).isActive = true
-        actionStackView.topAnchor.constraint(equalTo: photoImageView.bottomAnchor, constant: 20).isActive = true
-        actionStackView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor).isActive = true
-        actionStackView.bottomAnchor.constraint(lessThanOrEqualTo: safeArea.bottomAnchor, constant: -20).isActive = true
+        NSLayoutConstraint.activate([
+            actionStackView.widthAnchor.constraint(equalTo: safeArea.widthAnchor),
+            actionStackView.heightAnchor.constraint(equalToConstant: 40),
+            actionStackView.topAnchor.constraint(equalTo: photoImageView.bottomAnchor, constant: 20),
+            actionStackView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
+            actionStackView.bottomAnchor.constraint(lessThanOrEqualTo: safeArea.bottomAnchor, constant: -20)
+        ])
 
         actionStackView.delegate = self
     }

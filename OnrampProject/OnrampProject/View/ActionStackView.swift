@@ -48,7 +48,6 @@ class ActionStackView: UIStackView {
         addArrangedSubview(favoriteButton)
         distribution = .fillEqually
         axis = .horizontal
-    
     }
 
     @objc private func favoriteButtonTapped() {

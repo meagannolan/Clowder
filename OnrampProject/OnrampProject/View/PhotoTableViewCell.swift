@@ -28,12 +28,14 @@ class PhotoTableViewCell: UITableViewCell {
         contentView.addSubview(photoImageView)
         contentView.clipsToBounds = true
         photoImageView.translatesAutoresizingMaskIntoConstraints = false
-        photoImageView.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
-        photoImageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
-        photoImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
-        photoImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
-        photoImageView.widthAnchor.constraint(equalTo: contentView.widthAnchor).isActive = true
-        photoImageView.heightAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 1).isActive = true
+        NSLayoutConstraint.activate([
+            photoImageView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            photoImageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            photoImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            photoImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            photoImageView.widthAnchor.constraint(equalTo: contentView.widthAnchor),
+            photoImageView.heightAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 1)
+        ])
     }
 
     func configure(with photo: Photo) {

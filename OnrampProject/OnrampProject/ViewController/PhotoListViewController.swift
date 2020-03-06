@@ -10,6 +10,7 @@ import UIKit
 class PhotoListViewController: UIViewController {
 
     var photos: [Photo] = []
+    private let endpoint = Endpoint()
 
     private let tableView: UITableView = {
         let tableView = UITableView()
@@ -22,7 +23,8 @@ class PhotoListViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        NetworkManager.shared.fetchPhotos(for: Endpoint(page: 1)) { (photos, error) in
+        endpoint.page = 1
+        NetworkManager.shared.fetchPhotos(for: endpoint) { (photos, error) in
             self.photos = photos
             DispatchQueue.main.async {
                 self.tableView.reloadData()
@@ -39,14 +41,13 @@ class PhotoListViewController: UIViewController {
     private func setUpTableView() {
         view.addSubview(tableView)
         tableView.dataSource = self
-        tableView.prefetchDataSource = self
         tableView.delegate = self
         let safeArea = view.safeAreaLayoutGuide
         tableView.constrainTo(safeArea)
     }
 
 }
-extension PhotoListViewController: UITableViewDataSource, UITableViewDataSourcePrefetching, UITableViewDelegate {
+extension PhotoListViewController: UITableViewDataSource, UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return photos.count
@@ -69,19 +70,15 @@ extension PhotoListViewController: UITableViewDataSource, UITableViewDataSourceP
         return tableView.frame.width
     }
 
-    func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
-
-    }
-
-    func tableView(_ tableView: UITableView, cancelPrefetchingForRowsAt indexPaths: [IndexPath]) {
-
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if indexPath.row == photos.count - 1 {
+            endpoint.page += 1
+            NetworkManager.shared.fetchPhotos(for: endpoint) { (photos, error) in
+                self.photos += photos
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
+            }
+        }
     }
 }
-
-
-//    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-//        let photo = photos[indexPath.row]
-//        let rowWidth = tableView.frame.width
-//        let photoAspectRatio = CGFloat(photo.height / photo.width)
-//        return rowWidth * photoAspectRatio
-//    }

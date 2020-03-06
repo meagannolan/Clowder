@@ -8,13 +8,13 @@
 import UIKit
 
 class PhotoCollectionViewCell: UICollectionViewCell {
-
+    
     let photoImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
         return imageView
     }()
-
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         commonInit()
@@ -24,7 +24,7 @@ class PhotoCollectionViewCell: UICollectionViewCell {
         super.init(coder: coder)
         commonInit()
     }
-
+    
     private func commonInit() {
         contentView.addSubview(photoImageView)
         contentView.clipsToBounds = true
@@ -37,14 +37,18 @@ class PhotoCollectionViewCell: UICollectionViewCell {
             photoImageView.heightAnchor.constraint(equalTo: photoImageView.widthAnchor, multiplier: 1),
         ])
     }
-
+    
     func configure(with photo: Photo) {
         NetworkManager.shared.fetchImage(from: photo) { (image, error) in
             DispatchQueue.main.async {
                 self.photoImageView.image = image
-                
             }
         }
     }
-
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        photoImageView.image = nil
+    }
+    
 }
