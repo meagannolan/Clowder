@@ -15,8 +15,6 @@ enum ImageSize {
 
 @objc(Photo)
 
-//TODO: GET RID OF HEIGHT/WEIGHT
-
 class Photo: NSManagedObject {
 
     @NSManaged var id: String
