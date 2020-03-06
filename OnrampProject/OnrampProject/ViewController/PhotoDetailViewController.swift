@@ -9,7 +9,7 @@ import UIKit
 
 class PhotoDetailViewController: UIViewController {
 
-    private let photo: Photo
+    private let viewModel: PhotoViewModel
 
     private let closeButton: UIButton = {
         let button = UIButton()
@@ -21,7 +21,7 @@ class PhotoDetailViewController: UIViewController {
 
     private let photoImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFill
+        imageView.contentMode = .scaleAspectFit
         imageView.clipsToBounds = true
         return imageView
     }()
@@ -30,8 +30,8 @@ class PhotoDetailViewController: UIViewController {
 
     private lazy var alertPresenter = AlertPresenter(baseVC: self)
 
-    init(_ photo: Photo) {
-        self.photo = photo
+    init(_ photoViewModel: PhotoViewModel) {
+        self.viewModel = photoViewModel
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -41,17 +41,12 @@ class PhotoDetailViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        NetworkManager.shared.fetchImage(from: photo) { (image, error) in
-            DispatchQueue.main.async {
-                self.photoImageView.image = image
-                self.actionStackView.favoriteButton.isSelected = self.photo.isFavorite
-            }
-        }
+        configure(with: viewModel)
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        bind()
         view.backgroundColor = .black
 
         let safeArea = view.safeAreaLayoutGuide
@@ -86,6 +81,32 @@ class PhotoDetailViewController: UIViewController {
         actionStackView.delegate = self
     }
 
+    func bind() {
+        viewModel.didDownload = { success in
+            self.viewModelDidDownload(success)
+        }
+    }
+
+    private func configure(with viewModel: PhotoViewModel) {
+        photoImageView.image = viewModel.image
+        actionStackView.favoriteButton.isSelected = viewModel.isFavorite
+        viewModel.didUpdate = self.configure
+        viewModel.favoritingDidThrowError = showError
+        viewModel.loadImage()
+    }
+
+    private func showError() {
+        alertPresenter.showAlert(with: "Error", with: "Failed to save")
+    }
+
+    private func viewModelDidDownload(_ success: Bool) {
+        if success {
+             alertPresenter.showAlert(with: "Success", with: "Saved!")
+        } else {
+            showError()
+        }
+    }
+
     @objc func closeButtonTapped() {
         dismiss(animated: true, completion: nil)
     }
@@ -94,24 +115,12 @@ class PhotoDetailViewController: UIViewController {
 extension PhotoDetailViewController: ActionStackViewDelegate {
 
     func favoriteButtonDidTap(_ view: UIStackView, _ isSelected: Bool) {
-        photo.isFavorite = isSelected
-        do {
-            try CoreDataManager.shared.context.save()
-        } catch {
-            NSLog("Favorite failed to save")
-        }
+        actionStackView.favoriteButton.isSelected = !isSelected
+        viewModel.isFavorite = isSelected
+        viewModel.didUpdateFavorite()
     }
 
     func downloadButtonDidTap(_ view: UIStackView) {
-        guard let image = photoImageView.image else { return }
-        UIImageWriteToSavedPhotosAlbum(image, self, #selector(downloadedImage(_:didFinishSavingWithError:contextInfo:)), nil)
-    }
-
-    @objc private func downloadedImage(_ image: UIImage, didFinishSavingWithError error: NSError?, contextInfo: UnsafeRawPointer) {
-        if let error = error {
-            alertPresenter.showAlert(with: "Error", with: error.localizedDescription)
-        } else {
-            alertPresenter.showAlert(with: "Success", with: "Saved to your photos!")
-        }
+        viewModel.download()
     }
 }

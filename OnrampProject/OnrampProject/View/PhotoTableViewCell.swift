@@ -38,16 +38,15 @@ class PhotoTableViewCell: UITableViewCell {
         ])
     }
 
-    func configure(with photo: Photo) {
-        NetworkManager.shared.fetchImage(from: photo) { (image, error) in
-            DispatchQueue.main.async {
-                self.photoImageView.image = image
-            }
-        }
+    func configure(with viewModel: PhotoViewModel) {
+        photoImageView.image = viewModel.image
+        viewModel.didUpdate = self.configure
+        viewModel.loadImage()
     }
 
     override func prepareForReuse() {
         super.prepareForReuse()
         photoImageView.image = nil
+
     }
 }

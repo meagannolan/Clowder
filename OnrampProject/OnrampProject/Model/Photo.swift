@@ -8,15 +8,22 @@
 import Foundation
 import CoreData
 
+enum ImageSize {
+    case small
+    case large
+}
 
 @objc(Photo)
+
+//TODO: GET RID OF HEIGHT/WEIGHT
 
 class Photo: NSManagedObject {
 
     @NSManaged var id: String
     @NSManaged var width: Int32
     @NSManaged var height: Int32
-    @NSManaged var urls: [String: Any]
+    @NSManaged var smallImageURL: String
+    @NSManaged var largeImageURL: String
     @NSManaged var author: String
     @NSManaged var isFavorite: Bool
 
@@ -31,7 +38,12 @@ class Photo: NSManagedObject {
             self.height = height
         }
         if let urls = data["urls"] as? [String: Any] {
-            self.urls = urls
+            if let smallImageURL = urls["small"] as? String {
+                self.smallImageURL = smallImageURL
+            }
+            if let largeImageURL = urls["regular"] as? String {
+                self.largeImageURL = largeImageURL
+            }
         }
         if let author = data["name"] as? String {
             self.author = author

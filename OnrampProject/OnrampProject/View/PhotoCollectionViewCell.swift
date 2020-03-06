@@ -17,15 +17,14 @@ class PhotoCollectionViewCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        commonInit()
+        configureLayout()
     }
     
     required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        commonInit()
+       fatalError("init(coder:) has not been implemented")
     }
     
-    private func commonInit() {
+    private func configureLayout() {
         contentView.addSubview(photoImageView)
         contentView.clipsToBounds = true
         photoImageView.translatesAutoresizingMaskIntoConstraints = false
@@ -37,13 +36,11 @@ class PhotoCollectionViewCell: UICollectionViewCell {
             photoImageView.heightAnchor.constraint(equalTo: photoImageView.widthAnchor, multiplier: 1),
         ])
     }
-    
-    func configure(with photo: Photo) {
-        NetworkManager.shared.fetchImage(from: photo) { (image, error) in
-            DispatchQueue.main.async {
-                self.photoImageView.image = image
-            }
-        }
+
+    func configure(with viewModel: PhotoViewModel) {
+        photoImageView.image = viewModel.image
+        viewModel.didUpdate = self.configure
+        viewModel.loadImage()
     }
     
     override func prepareForReuse() {

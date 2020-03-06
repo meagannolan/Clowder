@@ -58,7 +58,7 @@ class NetworkManager {
         }
         for object in results {
             if let photoDict = object as? [String: Any], let id = photoDict["id"] as? String {
-                guard let photo = CoreDataManager.shared.fetchOrCreatePhoto(with: id) else { continue }
+                guard let photo = CoreDataManager.shared.fetchOrCreatePhoto(with: id) else { break }
                 photo.parse(data: photoDict)
                 photos.append(photo)
             }
@@ -66,10 +66,15 @@ class NetworkManager {
         return photos
     }
 
-    //should it be fetchimages? all at once?
-    func fetchImage(from photo: Photo, completionHandler: @escaping(UIImage?, Error?) -> Void) {
-        //TODO: fetch by size
-        guard let url = URL(string: photo.urls["small"] as! String) else { return }
+    func fetchImage(from photo: Photo, size: ImageSize, completionHandler: @escaping(UIImage?, Error?) -> Void) {
+        var urlString = ""
+        switch size {
+        case .small:
+            urlString = photo.smallImageURL
+        case .large:
+            urlString = photo.largeImageURL
+        }
+        guard let url = URL(string: urlString) else { return }
         let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
             if let error = error {
                 completionHandler(nil, error)

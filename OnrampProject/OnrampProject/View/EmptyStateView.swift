@@ -27,15 +27,14 @@ class EmptyStateView: UIView {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        commonInit()
+        configureLayout()
     }
 
     required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        commonInit()
+       fatalError("init(coder:) has not been implemented")
     }
 
-    private func commonInit() {
+    private func configureLayout() {
         addSubview(label)
         addSubview(imageView)
 

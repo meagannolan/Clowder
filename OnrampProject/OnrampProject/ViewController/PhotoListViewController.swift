@@ -11,6 +11,7 @@ class PhotoListViewController: UIViewController {
 
     var photos: [Photo] = []
     private let endpoint = Endpoint()
+    private let viewModel = PhotosViewModel()
 
     private let tableView: UITableView = {
         let tableView = UITableView()
@@ -24,12 +25,8 @@ class PhotoListViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         endpoint.page = 1
-        NetworkManager.shared.fetchPhotos(for: endpoint) { (photos, error) in
-            self.photos = photos
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
-            }
-        }
+        self.bind()
+        viewModel.fetchPhotos()
     }
 
     override func viewDidLoad() {
@@ -46,23 +43,33 @@ class PhotoListViewController: UIViewController {
         tableView.constrainTo(safeArea)
     }
 
+    private func bind(){
+        self.viewModel.didUpdate = { _ in
+            self.viewModelDidUpdate()
+        }
+    }
+
+    private func viewModelDidUpdate(){
+        self.tableView.reloadData()
+    }
+
 }
 extension PhotoListViewController: UITableViewDataSource, UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return photos.count
+        return viewModel.photoViewModels.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "PhotoTableViewCell", for: indexPath) as! PhotoTableViewCell
-        let photo = photos[indexPath.row]
-        cell.configure(with: photo)
+        let photoViewModel = viewModel.photoViewModels[indexPath.row]
+        cell.configure(with: photoViewModel)
         return cell
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let photo = photos[indexPath.row]
-        let photoDetailVC = PhotoDetailViewController(photo)
+        let photoViewModel = viewModel.photoViewModels[indexPath.row]
+        let photoDetailVC = PhotoDetailViewController(photoViewModel)
         present(photoDetailVC, animated: true, completion: nil)
     }
 
@@ -74,6 +81,7 @@ extension PhotoListViewController: UITableViewDataSource, UITableViewDelegate {
         if indexPath.row == photos.count - 1 {
             endpoint.page += 1
             NetworkManager.shared.fetchPhotos(for: endpoint) { (photos, error) in
+                guard error == nil else { return }
                 self.photos += photos
                 DispatchQueue.main.async {
                     self.tableView.reloadData()

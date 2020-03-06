@@ -20,7 +20,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         let photoListVC = PhotoListViewController()
         let favoritePhotosVC = FavoritePhotosViewController()
-        photoListVC.tabBarItem = UITabBarItem(title: "Photos", image: UIImage(systemName: "list.dash"), selectedImage: UIImage(systemName: "list.dash"))
+        photoListVC.tabBarItem = UITabBarItem(title: "Photos", image: UIImage(systemName: "photo"), selectedImage: UIImage(systemName: "photo.fill"))
         favoritePhotosVC.tabBarItem = UITabBarItem(title: "Favorites", image: UIImage(systemName: "heart"), selectedImage: UIImage(systemName: "heart.fill"))
 
         let tabBarController = UITabBarController()
@@ -45,7 +45,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
     func sceneDidEnterBackground(_ scene: UIScene) {
-        try? CoreDataManager.shared.context.save()
     }
 
 }

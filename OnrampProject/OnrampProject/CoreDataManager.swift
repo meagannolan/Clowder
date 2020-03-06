@@ -23,22 +23,25 @@ class CoreDataManager: NSObject {
     }
 
     func fetchOrCreatePhoto(with id: String) -> Photo? {
+        var fetchedPhoto: Photo? = nil
         guard let context = CoreDataManager.shared.context else { return nil }
         let request = NSFetchRequest<Photo>(entityName: "Photo")
         request.predicate = NSPredicate(format: "id == %@", id)
-        do {
-            let fetchedPhotos = try context.fetch(request)
-            if let photo = fetchedPhotos.first {
-                return photo
-            } else {
-                guard let photo = NSEntityDescription.insertNewObject(forEntityName: "Photo", into: context) as? Photo else { return nil }
-                photo.id = id
-                return photo
+        context.performAndWait() {
+            do {
+                let fetchedPhotos = try context.fetch(request)
+                if let photo = fetchedPhotos.first {
+                    fetchedPhoto = photo
+                } else {
+                    guard let photo = NSEntityDescription.insertNewObject(forEntityName: "Photo", into: context) as? Photo else { return }
+                    photo.id = id
+                    fetchedPhoto = photo
+                }
+            } catch {
+                NSLog("Failed to fetch photos")
             }
-        } catch {
-            NSLog("Failed to fetch photos")
         }
-        return nil
+        return fetchedPhoto
     }
     
     func fetchFavoritePhotos() -> [Photo] {
@@ -46,13 +49,15 @@ class CoreDataManager: NSObject {
         let context = CoreDataManager.shared.context
         let request = NSFetchRequest<Photo>(entityName: "Photo")
         request.predicate = NSPredicate(format: "isFavorite == %@", NSNumber(value: true))
-        do {
-            guard let fetchedPhotos = try context?.fetch(request) else { return photos }
-            photos = fetchedPhotos
-        } catch let error as NSError {
-            print(error)
+        context?.performAndWait() {
+            do {
+                if let fetchedPhotos = try context?.fetch(request) {
+                    photos = fetchedPhotos
+                }
+            } catch let error as NSError {
+                print(error)
+            }
         }
         return photos
     }
-
 }

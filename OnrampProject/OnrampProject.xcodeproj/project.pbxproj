@@ -26,7 +26,6 @@
 		9550F285240ECC8A007BDE52 /* FavoritePhotosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9550F284240ECC8A007BDE52 /* FavoritePhotosViewController.swift */; };
 		9550F287240ECC93007BDE52 /* PhotoDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9550F286240ECC93007BDE52 /* PhotoDetailViewController.swift */; };
 		9550F289240ECD19007BDE52 /* PhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9550F288240ECD19007BDE52 /* PhotoCollectionViewCell.swift */; };
-		9587C756240ECEE400E03660 /* PhotoCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9587C755240ECEE400E03660 /* PhotoCellViewModel.swift */; };
 		9587C75B240ED03C00E03660 /* OnRampProject.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 9587C759240ED03C00E03660 /* OnRampProject.xcdatamodeld */; };
 		9587C75D240ED10900E03660 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9587C75C240ED10900E03660 /* CoreDataManager.swift */; };
 		9587C760240ED42500E03660 /* UIView+OnRampProject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9587C75F240ED42500E03660 /* UIView+OnRampProject.swift */; };
@@ -77,7 +76,7 @@
 		9550F284240ECC8A007BDE52 /* FavoritePhotosViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritePhotosViewController.swift; sourceTree = "<group>"; };
 		9550F286240ECC93007BDE52 /* PhotoDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoDetailViewController.swift; sourceTree = "<group>"; };
 		9550F288240ECD19007BDE52 /* PhotoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCollectionViewCell.swift; sourceTree = "<group>"; };
-		9587C755240ECEE400E03660 /* PhotoCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCellViewModel.swift; sourceTree = "<group>"; };
+		9567DA07241229120099211F /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		9587C75A240ED03C00E03660 /* OnRampProject.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = OnRampProject.xcdatamodel; sourceTree = "<group>"; };
 		9587C75C240ED10900E03660 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		9587C75F240ED42500E03660 /* UIView+OnRampProject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+OnRampProject.swift"; sourceTree = "<group>"; };
@@ -114,6 +113,7 @@
 		6030FC6323FF0C79007F0901 = {
 			isa = PBXGroup;
 			children = (
+				9567DA07241229120099211F /* README.md */,
 				6030FC6E23FF0C79007F0901 /* OnrampProject */,
 				6030FC8523FF0C7A007F0901 /* OnrampProjectTests */,
 				6030FC9023FF0C7A007F0901 /* OnrampProjectUITests */,
@@ -221,7 +221,6 @@
 		9550F28B240ECD30007BDE52 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				9587C755240ECEE400E03660 /* PhotoCellViewModel.swift */,
 				95BCF4E62410B1CC0086A5EA /* PhotosViewModel.swift */,
 				95BCF4E82410B1E10086A5EA /* PhotoViewModel.swift */,
 			);
@@ -378,7 +377,6 @@
 				9550F289240ECD19007BDE52 /* PhotoCollectionViewCell.swift in Sources */,
 				95BCF4E72410B1CD0086A5EA /* PhotosViewModel.swift in Sources */,
 				9587C75D240ED10900E03660 /* CoreDataManager.swift in Sources */,
-				9587C756240ECEE400E03660 /* PhotoCellViewModel.swift in Sources */,
 				9550F287240ECC93007BDE52 /* PhotoDetailViewController.swift in Sources */,
 				95176D2D240F72F90066507D /* EmptyStateView.swift in Sources */,
 				95BCF4E5241088580086A5EA /* FavoriteButton.swift in Sources */,
@@ -631,6 +629,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = OnrampProjectUITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -650,6 +649,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = OnrampProjectUITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

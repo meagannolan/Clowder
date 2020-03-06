@@ -17,15 +17,14 @@ class FavoriteButton: UIButton {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        commonInit()
+        configure()
     }
 
     required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        commonInit()
+        fatalError("init(coder:) has not been implemented")
     }
 
-    private func commonInit() {
+    private func configure() {
         tintColor = .white
         setImage(UIImage(systemName: "heart.fill"), for: .normal)
         contentHorizontalAlignment = .fill
