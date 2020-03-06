@@ -7,7 +7,7 @@ Clowder is an app that allows you to view, favorite, and download cat photos.
 
 Used at least 3 UIViewControllers: PhotoListViewController, FavoritePhotosViewController, and PhotoDetailViewController.  
 Used at least one UIView: EmptyStateView  
-Used MVVM with viewModels  
+Used MVVM with viewModels: PhotoViewModel and PhotosViewModel
 Used a REST API: Unsplash API  
 Used at least 5 UIView/UIControls: UITableView (PhotoListController), UICollectionView(FavoritePhotosViewController), UIStackView(ActionStackView in PhotoDetailViewController), UIImageView(multiple - see PhotoTableViewCell and PhotoCollectionCell), UIButton(multiple - see FavoriteButton for example).   
 Used local persistence - I used CoreData to persist favorited cat photos.  
@@ -22,7 +22,7 @@ FavoritePhotosViewController shows a collectionView of favorited cat photos in P
 ![Image of FavoritePhotosVC](https://i.imgur.com/ydPJXgF.png)
 
 PhotoDetailViewController presents when you tap on a cat photo in either PhotoListViewController or FavoritePhotosViewController. You can tap on the download or favorite button (Favorite Button) in the stackView (ActionStackView) below the photo. An alert (AlertPresenter) shows upon completion or failure of downloading or favoriting. You can dismiss the view controller by tapping the x-button (closeButton).
-![Image of PhotoDetailViewController]
+![Image of PhotoDetailViewController](https://i.imgur.com/zPKvGRR.png)
 
 ## Design Pattern:
 
