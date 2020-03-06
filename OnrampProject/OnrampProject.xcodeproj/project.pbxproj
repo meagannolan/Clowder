@@ -76,7 +76,6 @@
 		9550F284240ECC8A007BDE52 /* FavoritePhotosViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritePhotosViewController.swift; sourceTree = "<group>"; };
 		9550F286240ECC93007BDE52 /* PhotoDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoDetailViewController.swift; sourceTree = "<group>"; };
 		9550F288240ECD19007BDE52 /* PhotoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCollectionViewCell.swift; sourceTree = "<group>"; };
-		9567DA07241229120099211F /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		9587C75A240ED03C00E03660 /* OnRampProject.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = OnRampProject.xcdatamodel; sourceTree = "<group>"; };
 		9587C75C240ED10900E03660 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		9587C75F240ED42500E03660 /* UIView+OnRampProject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+OnRampProject.swift"; sourceTree = "<group>"; };
@@ -113,7 +112,6 @@
 		6030FC6323FF0C79007F0901 = {
 			isa = PBXGroup;
 			children = (
-				9567DA07241229120099211F /* README.md */,
 				6030FC6E23FF0C79007F0901 /* OnrampProject */,
 				6030FC8523FF0C7A007F0901 /* OnrampProjectTests */,
 				6030FC9023FF0C7A007F0901 /* OnrampProjectUITests */,
