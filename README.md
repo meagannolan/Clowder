@@ -16,8 +16,7 @@ Used local persistence - I used CoreData to persist favorited cat photos.
 
 The app has a UITabBarController with two tabs: "Photos" (PhotoListViewController) and "Favorites" (FavoritePhotosViewController).
 
-PhotoListViewController shows an tableView of cat photos inside PhotoTableViewCells.
-<blockquote class="imgur-embed-pub" lang="en" data-id="a/7NS0zZC"><a href="//imgur.com/a/7NS0zZC"></a></blockquote><script async src="//s.imgur.com/min/embed.js" charset="utf-8"></script>
+PhotoListViewController shows an tableView of cat photos inside PhotoTableViewCells. (https://i.imgur.com/1dQ8ZYh.jpg)
 
 FavoritePhotosViewController shows a collectionView of favorited cat photos in PhotoCollectionViewCells. If you haven't favorited any cat photos yet, it shows an empty state (EmptyStateView).
 
